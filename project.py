@@ -1,28 +1,31 @@
-# Write your code here:
-def get_yearly_revenue(monthly_revenue): 
-  return monthly_revenue * 12
-def get_yearly_expenses(monthly_expenses):
-  return monthly_expenses * 12
-def get_tax_amount(profit): 
-  if profit > 100000:
-    return profit * 0.25 + profit
-  elif profit <= 100000:
-    return profit * 0.15 + profit
-def apply_tax_credits(tax_amount,tax_credits):
-  return tax_amount * tax_credits
+playing = True
 
+a = int(input("Choose a number:\n"))
+b = int(input("Choose another one:\n"))
+operation = input("Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n")
+  
+# add your code here!
 
-# Don't touch anthing below this line 🙅🏻‍♂️🙅🏻‍♀️
-
-monthly_revenue = 5500000
-monthly_expenses = 2700000
-tax_credits = 0.01
-
-profit = get_yearly_revenue(monthly_revenue) - get_yearly_expenses(monthly_expenses)
-
-tax_amount = get_tax_amount(profit)
-
-final_tax_amount = tax_amount - apply_tax_credits(tax_amount, tax_credits)
-
-print(f"Your tax bill is: ${final_tax_amount}")
-
+while playing:
+    if operation == '*':
+        print("Result:", a*b)
+        a = int(input("Choose a number:\n"))
+        b = int(input("Choose another one:\n"))
+        operation = input("Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n")
+    elif operation == '+':
+        print("Result:", a+b)
+        a = int(input("Choose a number:\n"))
+        b = int(input("Choose another one:\n"))
+        operation = input("Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n")
+    elif operation == '-':
+        print("Result:", a-b)
+        a = int(input("Choose a number:\n"))
+        b = int(input("Choose another one:\n"))
+        operation = input("Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n")
+    elif operation == '/':
+        print("Result:", a/b)
+        a = int(input("Choose a number:\n"))
+        b = int(input("Choose another one:\n"))
+        operation = input("Choose an operation:\n    Options are: + , - , * or /.\n    Write 'exit' to finish.\n")
+    elif operation == 'exit':
+        playing = False
