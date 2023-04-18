@@ -1,23 +1,30 @@
-from requests import get
+from requests import get # 웹사이트를 받아오는 방식
+from bs4 import BeautifulSoup
+base_url = "https://weworkremotely.com/remote-jobs/search?term="
 
-websites = (
-    "google.com",
-    "airbnb.com",
-    "https://twitter.com",
-    "facebook.com",
-    "https://tiktok.com"
-)
-
-results = {}
-
-for each in websites: 
-    #for 뒤에 오는 건 placeholder , 보통 movie in movies, website in websites 의 형식으로 만듦
-    if not each.startswith("https://"):
-        each = f"https://{each}"
-    response = get(each) #띄어쓰기 중요함
-    if response.status_code == 200:
-      results[each] = "OK"
-    else:
-      results[each] = "FAILED"
-
-print(results)
+search_term = "java"
+response = get(f"{base_url}{search_term}") #웹사이트 받아옴
+if response.status_code != 200:
+  print("Can't request website")
+else:
+  results = []
+  soup = BeautifulSoup(response.text , 'html.parser')
+  jobs = soup.find_all('section' , class_= "jobs")
+  for job_section in jobs:
+    job_posts = job_section.find_all('li')
+    job_posts.pop(-1)
+    for post in job_posts:
+      anchors = post.find_all('a')
+      anchors = anchors[1]
+      link = anchors['href']
+      company, kind, region = anchors.find_all('span', class_="company")
+      title = anchors.find('span')
+      job_data = {
+        'company' : company.string,
+        'region' : region.string,
+        'position' : title.string
+      }
+      results.append(job_data)
+  for result in results:
+    print(result)
+    print("////////////")
